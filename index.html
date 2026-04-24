@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryan Hinnen — Développeur Web · Portfolio</title>
+  <meta name="description" content="Portfolio de Bryan Hinnen, développeur web autodidacte. Création de sites sur-mesure, refonte UX et agents IA pour les PME.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Bryan Hinnen — Développeur Web">
+  <meta property="og:description" content="Portfolio de Bryan Hinnen, développeur web autodidacte. Création de sites sur-mesure, refonte UX et agents IA pour les PME.">
+  <meta property="og:image"       content="assets/images/og-preview.jpg">
+  <meta property="og:url"         content="https://bryanhinnen.ch">
+  <meta property="og:locale"      content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Bryan Hinnen — Développeur Web">
+  <meta name="twitter:description" content="Portfolio de Bryan Hinnen, développeur web autodidacte. Création de sites sur-mesure, refonte UX et agents IA pour les PME.">
+  <meta name="twitter:image"       content="assets/images/og-preview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Critical CSS — required for above-the-fold rendering (nav + hero). Duplicates a subset of css/style.css. -->
+  <style>
+    :root {
+      --color-bg:         #0a0a0a;
+      --color-bg-alt:     #111111;
+      --color-surface:    #1a1a1a;
+      --color-border:     #2e2e2e;
+      --color-text:       #e0e0e0;
+      --color-text-muted: #888888;
+      --color-primary:    #64ffda;
+      --color-accent:     #64ffda;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-base:    'Inter', sans-serif;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-lg:   1.125rem;
+      --text-xl:   1.25rem;
+      --leading-tight:   1.1;
+      --leading-base:    1.7;
+      --leading-relaxed: 1.65;
+      --tracking-tight: -0.02em;
+      --space-2:  0.5rem;
+      --space-4:  1rem;
+      --space-6:  1.5rem;
+      --space-8:  2rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --max-width:   960px;
+      --nav-height:  64px;
+      --radius:      0.5rem;
+      --z-nav:          100;
+      --nav-blur:       12px;
+      --nav-bg-opacity: 85%;
+      --duration-fast: 0.2s;
+      --duration-base: 0.3s;
+      --duration-pulse: 2.5s;
+      --easing: ease;
+      --min-touch: 44px;
+    }
+    [data-theme="light"] {
+      --color-bg:         #ffffff;
+      --color-bg-alt:     #f5f5f5;
+      --color-surface:    #f0f0f0;
+      --color-border:     #e0e0e0;
+      --color-text:       #1a1a1a;
+      --color-text-muted: #666666;
+      --color-primary:    #0d9373;
+      --color-accent:     #0d9373;
+    }
+    body, .nav {
+      transition: background-color var(--duration-base) var(--easing),
+                  color var(--duration-base) var(--easing),
+                  border-color var(--duration-base) var(--easing);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, video, svg { display: block; max-width: 100%; }
+    a { color: var(--color-primary); text-decoration: none; cursor: pointer; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; }
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-base);
+      font-size: clamp(1rem, 1vw + 0.75rem, 1.1rem);
+      line-height: var(--leading-base);
+    }
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+    }
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-text);
+    }
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-4);
+    }
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: var(--z-nav);
+      height: var(--nav-height);
+      display: flex; align-items: center; justify-content: space-between;
+      padding-inline: var(--space-6);
+      background-color: color-mix(in srgb, var(--color-bg) var(--nav-bg-opacity), transparent);
+      backdrop-filter: blur(var(--nav-blur));
+      -webkit-backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav__brand {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg); font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: var(--tracking-tight);
+    }
+    .nav__brand:hover { text-decoration: none; color: var(--color-primary); }
+    .nav__menu { display: flex; list-style: none; gap: var(--space-8); }
+    .nav__link {
+      font-size: var(--text-sm); font-weight: 500;
+      color: var(--color-text-muted);
+      transition: color var(--duration-fast) var(--easing);
+    }
+    .nav__link:hover { color: var(--color-text); text-decoration: none; }
+    .nav__theme-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 50%;
+      color: var(--color-text-muted);
+      transition: color var(--duration-fast) var(--easing),
+                  border-color var(--duration-fast) var(--easing);
+    }
+    .nav__theme-btn:hover { color: var(--color-primary); border-color: var(--color-primary); }
+    .icon--moon { display: none; }
+    [data-theme="light"] .icon--sun  { display: none; }
+    [data-theme="light"] .icon--moon { display: block; }
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: var(--nav-height);
+      padding-inline: var(--space-6);
+    }
+    .hero__container {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-16); align-items: center; width: 100%;
+    }
+    .hero__eyebrow {
+      display: inline-flex; align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm); font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: var(--space-6);
+    }
+    .hero__eyebrow::before {
+      content: ''; width: 8px; height: 8px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      flex-shrink: 0;
+      animation: pulse-dot var(--duration-pulse) ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero__subtitle {
+      font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+    .hero__tagline {
+      font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+      color: var(--color-text);
+      max-width: 44ch;
+      line-height: var(--leading-relaxed);
+      margin-bottom: var(--space-8);
+    }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+    .hero__visual { display: flex; align-items: center; justify-content: center; }
+    .hero__illustration { width: 100%; max-width: 520px; height: auto; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: var(--min-touch);
+      padding: 0.625rem 1.5rem;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      font-family: var(--font-base); font-weight: 600; font-size: var(--text-sm);
+      border-radius: var(--radius);
+      transition: opacity var(--duration-fast) var(--easing);
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn--outline {
+      background-color: transparent;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+    .btn--outline:hover { background-color: var(--color-primary); color: var(--color-bg); opacity: 1; }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100%; left: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      background-color: var(--color-bg);
+      color: var(--color-primary);
+      font-weight: 600; font-size: var(--text-sm);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius);
+      z-index: calc(var(--z-nav) + 1);
+      transition: top var(--duration-fast) var(--easing);
+    }
+    .skip-link:focus { top: var(--space-4); text-decoration: none; }
+    @media (max-width: 767px) {
+      .hero__container { grid-template-columns: 1fr; text-align: center; gap: var(--space-12); }
+      .hero__eyebrow { justify-content: center; }
+      h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
+      .hero__tagline { max-width: 100%; margin-inline: auto; }
+      .hero__actions { justify-content: center; }
+      .hero__visual { display: none; }
+      .nav__menu { display: none; }
+      .container { padding-inline: var(--space-4); }
+    }
+  </style>
+
+  <!-- Full CSS — loaded asynchronously to avoid render-blocking -->
+  <link rel="preload" as="style" href="css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+
+  <!-- Theme init — runs before body paints to avoid FOUC -->
+  <script>
+    (function(){
+      const saved = localStorage.getItem('theme');
+      const t = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#" class="nav__brand">Bryan Hinnen</a>
+    <ul class="nav__menu">
+      <li><a href="#services" class="nav__link">Services</a></li>
+      <li><a href="#projects" class="nav__link">Projets</a></li>
+      <li><a href="#about" class="nav__link">À propos</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
+    </ul>
+    <button class="nav__theme-btn" id="theme-toggle" aria-label="Basculer le thème">
+      <svg class="icon icon--sun" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon icon--moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero__container">
+
+      <div class="hero__content">
+        <span class="hero__eyebrow">Disponible pour de nouveaux projets</span>
+        <h1>Bryan Hinnen</h1>
+        <p class="hero__subtitle">Du marketing au code, la communication pour se développer.</p>
+        <p class="hero__tagline">J'apprends en construisant — et je transforme des idées en projets fonctionnels.</p>
+        <div class="hero__actions">
+          <a href="#projects" class="btn">Voir mes projets</a>
+          <a href="#contact" class="btn btn--outline">Me contacter</a>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <svg class="hero__illustration" viewBox="0 0 520 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .il-win      { fill: var(--color-surface); }
+            .il-bar      { fill: var(--color-bg-alt); }
+            .il-border   { stroke: var(--color-border); }
+            .il-b-accent { stroke: var(--color-primary); stroke-opacity: .4; }
+            .il-ln       { fill: var(--color-border); }
+            .il-txt      { fill: var(--color-text); }
+            .il-muted    { fill: var(--color-text-muted); }
+            .il-acc      { fill: var(--color-primary); }
+            .il-bg       { fill: var(--color-bg); }
+            .il-bgalt    { fill: var(--color-bg-alt); }
+            .il-badge    { fill: var(--color-surface); }
+            .il-dot      { fill: var(--color-border); opacity: .45; }
+            .il-conn     { stroke: var(--color-border); opacity: .4; }
+            .il-conn-a   { stroke: var(--color-primary); opacity: .3; }
+          </style>
+          <defs>
+            <radialGradient id="hl-glow" cx="50%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="var(--color-primary)" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="hl-dots" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" class="il-dot"/>
+            </pattern>
+          </defs>
+
+          <!-- bg -->
+          <rect width="520" height="400" fill="url(#hl-dots)"/>
+          <ellipse cx="260" cy="200" rx="230" ry="175" fill="url(#hl-glow)"/>
+
+          <!-- ── Editor window ── -->
+          <rect x="20" y="20" width="310" height="236" rx="10" class="il-win il-border" stroke-width="1"/>
+          <rect x="20" y="20" width="310" height="34" rx="10" class="il-bar il-border" stroke-width="1"/>
+          <rect x="20" y="44"  width="310" height="10"  class="il-bar"/>
+          <!-- traffic lights -->
+          <circle cx="40" cy="37" r="5" fill="#FF5F57"/>
+          <circle cx="57" cy="37" r="5" fill="#FEBC2E"/>
+          <circle cx="74" cy="37" r="5" fill="#28C840"/>
+          <!-- tabs -->
+          <rect x="92"  y="22" width="76" height="20" rx="4" class="il-win"/>
+          <text x="130" y="36" text-anchor="middle" font-size="9" font-family="monospace" class="il-txt">index.html</text>
+          <rect x="172" y="22" width="64" height="20" rx="4" class="il-bar"/>
+          <text x="204" y="36" text-anchor="middle" font-size="9" font-family="monospace" class="il-muted">style.css</text>
+
+          <!-- line numbers -->
+          <g font-size="8" font-family="monospace" class="il-ln">
+            <text x="32" y="74">01</text><text x="32" y="92">02</text>
+            <text x="32" y="110">03</text><text x="32" y="128">04</text>
+            <text x="32" y="146">05</text><text x="32" y="164">06</text>
+            <text x="32" y="182">07</text><text x="32" y="200">08</text>
+            <text x="32" y="218">09</text><text x="32" y="236">10</text>
+          </g>
+
+          <!-- active line -->
+          <rect x="52" y="175" width="268" height="13" rx="2" class="il-acc" opacity=".06"/>
+
+          <!-- code blocks -->
+          <rect x="52" y="68" width="24" height="7" rx="1" class="il-acc" opacity=".85"/>
+          <rect x="80" y="68" width="50" height="7" rx="1" class="il-muted" opacity=".65"/>
+          <rect x="134" y="68" width="62" height="7" rx="1" class="il-acc" opacity=".5"/>
+
+          <rect x="64" y="86" width="20" height="7" rx="1" class="il-acc" opacity=".7"/>
+          <rect x="88" y="86" width="84" height="7" rx="1" class="il-txt" opacity=".45"/>
+
+          <rect x="64" y="104" width="18" height="7" rx="1" class="il-muted" opacity=".55"/>
+          <rect x="86" y="104" width="100" height="7" rx="1" class="il-acc" opacity=".45"/>
+
+          <rect x="52" y="122" width="24" height="7" rx="1" class="il-acc" opacity=".75"/>
+          <rect x="80" y="122" width="56" height="7" rx="1" class="il-muted" opacity=".5"/>
+          <rect x="140" y="122" width="36" height="7" rx="1" class="il-txt" opacity=".4"/>
+
+          <rect x="64" y="140" width="116" height="7" rx="1" class="il-muted" opacity=".35"/>
+
+          <rect x="52" y="158" width="28" height="7" rx="1" class="il-acc" opacity=".6"/>
+          <rect x="84" y="158" width="88" height="7" rx="1" class="il-txt" opacity=".35"/>
+
+          <!-- active line code -->
+          <rect x="52" y="179" width="28" height="7" rx="1" class="il-acc" opacity="1"/>
+          <rect x="84" y="179" width="124" height="7" rx="1" class="il-txt" opacity=".6"/>
+          <!-- cursor blink -->
+          <rect x="212" y="177" width="6" height="11" rx="1" class="il-acc">
+            <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+          </rect>
+
+          <rect x="52" y="197" width="24" height="7" rx="1" class="il-acc" opacity=".65"/>
+          <rect x="80" y="197" width="72" height="7" rx="1" class="il-muted" opacity=".4"/>
+
+          <rect x="52" y="215" width="18" height="7" rx="1" class="il-muted" opacity=".3"/>
+          <rect x="74" y="215" width="108" height="7" rx="1" class="il-muted" opacity=".22"/>
+
+          <rect x="52" y="233" width="24" height="7" rx="1" class="il-acc" opacity=".5"/>
+
+          <!-- ── Terminal overlay ── -->
+          <rect x="218" y="208" width="284" height="162" rx="8" class="il-bg il-b-accent" stroke-width="1"/>
+          <rect x="218" y="208" width="284" height="26" rx="8" class="il-bgalt"/>
+          <rect x="218" y="224" width="284" height="10" class="il-bgalt"/>
+          <circle cx="234" cy="221" r="4" fill="var(--color-border)"/>
+          <circle cx="247" cy="221" r="4" fill="var(--color-border)"/>
+          <circle cx="260" cy="221" r="4" fill="var(--color-border)"/>
+          <text x="360" y="226" text-anchor="middle" font-size="8" font-family="monospace" class="il-muted">bash — mon-portfolio</text>
+
+          <text x="230" y="253" font-size="9" font-family="monospace" class="il-acc">$</text>
+          <text x="241" y="253" font-size="9" font-family="monospace" class="il-txt"> claude "améliore le design"</text>
+          <text x="230" y="271" font-size="9" font-family="monospace" class="il-acc">✓</text>
+          <text x="241" y="271" font-size="9" font-family="monospace" class="il-muted"> Code généré (0.9s)</text>
+          <text x="230" y="289" font-size="9" font-family="monospace" class="il-acc">$</text>
+          <text x="241" y="289" font-size="9" font-family="monospace" class="il-txt"> git push origin main</text>
+          <text x="230" y="307" font-size="9" font-family="monospace" class="il-muted"> → jbsa.ch deployed ✓</text>
+          <rect x="230" y="320" width="8" height="10" rx="1" class="il-acc">
+            <animate attributeName="opacity" values="1;0;1" dur="1.3s" begin="0.4s" repeatCount="indefinite"/>
+          </rect>
+
+          <!-- ── Floating badges ── -->
+          <rect x="0"   y="124" width="100" height="28" rx="14" class="il-badge il-border" stroke-width="1"/>
+          <text x="50"  y="142" text-anchor="middle" font-size="10" font-family="sans-serif" class="il-muted">WordPress</text>
+
+          <rect x="398" y="26"  width="114" height="28" rx="14" class="il-badge il-b-accent" stroke-width="1"/>
+          <text x="455" y="44"  text-anchor="middle" font-size="10" font-family="sans-serif" class="il-acc">Claude Code</text>
+
+          <rect x="408" y="76"  width="104" height="28" rx="14" class="il-badge il-border" stroke-width="1"/>
+          <text x="460" y="94"  text-anchor="middle" font-size="10" font-family="sans-serif" class="il-muted">UX Design</text>
+
+          <rect x="2"   y="292" width="100" height="28" rx="14" class="il-badge il-b-accent" stroke-width="1"/>
+          <text x="52"  y="310" text-anchor="middle" font-size="10" font-family="sans-serif" class="il-acc">IA Agents</text>
+
+          <!-- connectors -->
+          <line x1="100" y1="138" x2="148" y2="152" class="il-conn" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="398" y1="40"  x2="330" y2="68"  class="il-conn-a" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="408" y1="90"  x2="330" y2="120" class="il-conn" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="102" y1="306" x2="218" y2="276" class="il-conn-a" stroke-width="1" stroke-dasharray="4 4"/>
+        </svg>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section id="services" class="section">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-intro">Des solutions web sur-mesure pour indépendants et PME — qualité artisanale, proximité locale, explications sans jargon.</p>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+            <div class="service-card__header">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Création de sites web</h3>
+            </div>
+            <p class="service-card__intro">Deux approches au choix selon votre autonomie et votre budget.</p>
+
+            <div class="service-approach">
+              <h4 class="service-approach__title">Code pur</h4>
+              <p class="service-approach__desc">Sans constructeur — performance et liberté maximales.</p>
+              <ul class="service-tiers">
+                <li class="service-tier">
+                  <div class="service-tier__header">
+                    <span class="service-tier__name">Petit budget</span>
+                    <span class="service-tier__price">dès CHF 500.-</span>
+                  </div>
+                  <p class="service-tier__desc">Site 5 pages max, contenu fourni par le client, 1 aller-retour.</p>
+                </li>
+                <li class="service-tier">
+                  <div class="service-tier__header">
+                    <span class="service-tier__name">Avancé</span>
+                    <span class="service-tier__price">dès CHF 1'200.-</span>
+                  </div>
+                  <p class="service-tier__desc">Site avec contenu travaillé ensemble, 3 allers-retours.</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="service-approach">
+              <h4 class="service-approach__title">Avec constructeur WordPress</h4>
+              <p class="service-approach__desc">Interface éditable — vous gardez la main sur le contenu.</p>
+              <ul class="service-tiers">
+                <li class="service-tier">
+                  <div class="service-tier__header">
+                    <span class="service-tier__name">Petit budget</span>
+                    <span class="service-tier__price">dès CHF 1'000.-</span>
+                  </div>
+                  <p class="service-tier__desc">Choix d'un template dans le catalogue, contenu fourni par le client, 1 aller-retour + bonus formation vidéo YouTube.</p>
+                </li>
+                <li class="service-tier">
+                  <div class="service-tier__header">
+                    <span class="service-tier__name">Avancé</span>
+                    <span class="service-tier__price">dès CHF 1'500.-</span>
+                  </div>
+                  <p class="service-tier__desc">Interface éditable, formation pour modifier textes et images en autonomie, 3 allers-retours, 5 pages / 5 containers par page.</p>
+                </li>
+                <li class="service-tier">
+                  <div class="service-tier__header">
+                    <span class="service-tier__name">Sur mesure</span>
+                    <span class="service-tier__price">dès CHF 4'000.-</span>
+                  </div>
+                  <p class="service-tier__desc">Création de maquette, allers-retours illimités, suivi personnalisé, 5 pages + 4 sous-pages, accompagnement couleurs et logo.</p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__header">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Refonte UX / UI</h3>
+            </div>
+            <p class="service-card__intro">Moderniser un site existant ou optimiser son parcours utilisateur.</p>
+
+            <ul class="service-tiers">
+              <li class="service-tier">
+                <div class="service-tier__header">
+                  <span class="service-tier__name">Refonte complète</span>
+                  <span class="service-tier__price">dès CHF 1'200.-</span>
+                </div>
+                <p class="service-tier__desc">Refonte complète d'un site existant.</p>
+              </li>
+              <li class="service-tier">
+                <div class="service-tier__header">
+                  <span class="service-tier__name">Encarts spécifiques</span>
+                  <span class="service-tier__price">dès CHF 300.-</span>
+                </div>
+                <p class="service-tier__desc">Modification ciblée d'encarts ou sections existantes.</p>
+              </li>
+              <li class="service-tier">
+                <div class="service-tier__header">
+                  <span class="service-tier__name">Parcours utilisateur</span>
+                  <span class="service-tier__price">dès CHF 500.-</span>
+                </div>
+                <p class="service-tier__desc">Optimisation du parcours utilisateur.</p>
+              </li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__header">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Agents IA &amp; Automatisation</h3>
+            </div>
+            <p class="service-card__intro">L'IA automatise des tâches répétitives, vous fait gagner du temps et améliore la qualité de vos processus. Pour indépendants et PME qui veulent passer à l'IA sans jargon technique.</p>
+
+            <h4 class="service-card__subtitle">Processus en 4 étapes</h4>
+            <ol class="service-process">
+              <li class="service-process__step">
+                <span class="service-process__num" aria-hidden="true">1</span>
+                <div class="service-process__body">
+                  <h5 class="service-process__title">Analyse du processus</h5>
+                  <p class="service-process__desc">Échange pour comprendre votre métier, vos outils actuels et identifier les tâches chronophages ou répétitives (réponses emails, tri de données, génération de rapports, suivi clients, etc.)</p>
+                </div>
+              </li>
+              <li class="service-process__step">
+                <span class="service-process__num" aria-hidden="true">2</span>
+                <div class="service-process__body">
+                  <h5 class="service-process__title">Définition des objectifs</h5>
+                  <p class="service-process__desc">Vos besoins traduits en actions concrètes et mesurables. Quels gains de temps ? Quels résultats attendus ? On fixe ensemble ce que l'agent doit faire, sans sur-promettre.</p>
+                </div>
+              </li>
+              <li class="service-process__step">
+                <span class="service-process__num" aria-hidden="true">3</span>
+                <div class="service-process__body">
+                  <h5 class="service-process__title">Création de l'agent</h5>
+                  <p class="service-process__desc">Développement d'un agent IA adapté à votre cas : automatisation de flux, agent conversationnel, traitement de documents, génération de contenu, connexion à vos outils existants (CRM, agenda, formulaires, etc.)</p>
+                </div>
+              </li>
+              <li class="service-process__step">
+                <span class="service-process__num" aria-hidden="true">4</span>
+                <div class="service-process__body">
+                  <h5 class="service-process__title">Testing &amp; Reporting</h5>
+                  <p class="service-process__desc">Tests en conditions réelles, ajustements, puis remise d'un rapport clair expliquant ce que l'agent fait, comment le suivre et comment l'ajuster si besoin. Tout est expliqué sans jargon.</p>
+                </div>
+              </li>
+            </ol>
+
+            <div class="service-card__pricing">
+              <span class="service-tier__name">Tarif</span>
+              <span class="service-tier__price">dès CHF 500.-</span>
+            </div>
+
+            <h4 class="service-card__subtitle">Exemples de cas concrets</h4>
+            <ul class="service-examples">
+              <li>Réponse automatique aux demandes de devis par email</li>
+              <li>Résumé automatique de réunions ou documents</li>
+              <li>Tri et classification de données clients</li>
+              <li>Génération de rapports hebdomadaires</li>
+              <li>Chatbot de support pour site web</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-card__header">
+              <div class="service-card__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Hébergement, Sécurité &amp; Maintenance</h3>
+            </div>
+            <p class="service-card__intro">Votre site hébergé en Suisse, mis à jour, sécurisé et suivi au quotidien.</p>
+
+            <div class="service-plans">
+              <div class="service-plan">
+                <div class="service-plan__header">
+                  <h4 class="service-plan__title">Maintenance mensuelle</h4>
+                  <span class="service-tier__price">dès CHF 80.-/mois</span>
+                </div>
+                <ul class="service-features">
+                  <li>Gestion de l'hébergement</li>
+                  <li>Création et gestion des adresses mail</li>
+                  <li>Mises à jour du site</li>
+                  <li>10 modifications de contenu par mois (textes / images)</li>
+                  <li>Gestion de la sécurité</li>
+                  <li>Gestion des bugs</li>
+                </ul>
+              </div>
+
+              <div class="service-plan">
+                <div class="service-plan__header">
+                  <h4 class="service-plan__title">Mise en place hébergement</h4>
+                  <span class="service-tier__price">dès CHF 200.-</span>
+                </div>
+                <ul class="service-features">
+                  <li>Hébergement 100% Suisse via Infomaniak</li>
+                  <li>Ajout du nom de domaine</li>
+                  <li>Jusqu'à 5 adresses mail personnalisées</li>
+                  <li>Création d'un cloud pour stocker vos documents en ligne</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section--alt">
+      <div class="container">
+        <h2 class="section-title">Mes Projets</h2>
+        <div class="project-grid">
+
+          <article class="project-card">
+            <div class="project-card__banner"></div>
+            <div class="project-card__body">
+              <span class="project-card__badge project-card__badge--done">Terminé</span>
+              <h3 class="project-card__title">JB Jardins SA</h3>
+              <p class="project-card__description">Site vitrine sur-mesure pour une entreprise d'arboriculture. Du maquettage à la mise en ligne — palette, pages services, page réalisations et contenu.</p>
+              <ul class="project-card__tags">
+                <li class="project-card__tag">WordPress</li>
+                <li class="project-card__tag">Elementor Pro</li>
+                <li class="project-card__tag">Web Design</li>
+                <li class="project-card__tag">UX/UI</li>
+              </ul>
+              <p class="project-card__services">Services actuels : hébergement, sécurité & optimisation</p>
+              <a href="https://www.jbsa.ch/" target="_blank" rel="noopener" class="project-card__link">Voir le projet →<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-card__banner"></div>
+            <div class="project-card__body">
+              <span class="project-card__badge project-card__badge--done">Terminé</span>
+              <h3 class="project-card__title">Gastromachines SA</h3>
+              <p class="project-card__description">Refonte du site et amélioration du parcours utilisateur. Mise en place d'une solution cloud et d'une newsletter automatisée.</p>
+              <ul class="project-card__tags">
+                <li class="project-card__tag">WordPress</li>
+                <li class="project-card__tag">Elementor Pro</li>
+                <li class="project-card__tag">Google Workspace</li>
+                <li class="project-card__tag">Brevo</li>
+                <li class="project-card__tag">UX Design</li>
+              </ul>
+              <p class="project-card__services">Services actuels : hébergement, sécurité & optimisation</p>
+              <a href="https://gastromachines.ch/" target="_blank" rel="noopener" class="project-card__link">Voir le projet →<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-card__banner"></div>
+            <div class="project-card__body">
+              <span class="project-card__badge">En cours</span>
+              <h3 class="project-card__title">Divy Events</h3>
+              <p class="project-card__description">Refonte du site et amélioration du parcours utilisateur. Modélisation du lieu de stockage sur plan et mise en place de Rentman, webapp de gestion du matériel événementiel.</p>
+              <ul class="project-card__tags">
+                <li class="project-card__tag">WordPress</li>
+                <li class="project-card__tag">Elementor Pro</li>
+                <li class="project-card__tag">Rentman</li>
+                <li class="project-card__tag">UX Design</li>
+              </ul>
+              <div class="project-card__links">
+                <a href="https://divyevents.ch/" target="_blank" rel="noopener" class="project-card__link">Voir le site →<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+                <a href="https://rentman.io/" target="_blank" rel="noopener" class="project-card__link">Rentman →<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-card__banner"></div>
+            <div class="project-card__body">
+              <span class="project-card__badge">En cours</span>
+              <h3 class="project-card__title">Site web actuel</h3>
+              <p class="project-card__description">Création de ce portfolio de A à Z, entièrement en code — HTML, CSS et JavaScript vanilla, sans framework ni build step.</p>
+              <ul class="project-card__tags">
+                <li class="project-card__tag">HTML</li>
+                <li class="project-card__tag">CSS</li>
+                <li class="project-card__tag">JavaScript</li>
+                <li class="project-card__tag">Claude Code</li>
+              </ul>
+              <a href="#" class="project-card__link">Ce site →</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-card__banner"></div>
+            <div class="project-card__body">
+              <span class="project-card__badge">En cours</span>
+              <h3 class="project-card__title">Agents IA Business</h3>
+              <p class="project-card__description">Création d'agents IA sur-mesure pour l'analyse du business client — audit, synthèse de données et recommandations automatisées.</p>
+              <ul class="project-card__tags">
+                <li class="project-card__tag">Claude API</li>
+                <li class="project-card__tag">IA Agents</li>
+                <li class="project-card__tag">Automatisation</li>
+                <li class="project-card__tag">Business Analysis</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section-title">À propos</h2>
+        <div class="about__text">
+          <p>Project Manager à Genève, j'ai piloté des projets digitaux et opérationnels pour des structures très variées — de la startup que j'ai co-fondée (Hosspi, app de micro-services revendue en 2022) aux projets e-commerce chez TAG Heuer (Groupe LVMH), en passant par la direction opérationnelle d'Ovo et actuellement Gastromachines SA, où je gère le site web, le cloud et le dessin technique.</p>
+          <p>Formé en Digital Marketing &amp; Communication au CREA Omnes, je me suis progressivement rapproché du code. Aujourd'hui, je développe mes propres solutions web et agents IA en m'appuyant sur l'intelligence artificielle comme partenaire d'apprentissage et d'accélération.</p>
+          <p>Ce parcours mixte — business, marketing, tech — me permet de parler aussi bien aux dirigeants qu'aux développeurs, et surtout de vulgariser les sujets techniques pour ceux qui ne le sont pas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-intro">Une question, un projet ? Remplissez ce formulaire — je vous réponds sous 48h.</p>
+
+        <form class="contact-form" id="contact-form" action="mailto:bryanhinnen.rs@gmail.com" method="post" enctype="text/plain">
+
+          <div class="contact-form__row">
+            <label class="contact-form__field">
+              <span class="contact-form__label">Prénom <span aria-hidden="true">*</span></span>
+              <input type="text" name="firstname" required autocomplete="given-name">
+            </label>
+            <label class="contact-form__field">
+              <span class="contact-form__label">Nom <span aria-hidden="true">*</span></span>
+              <input type="text" name="lastname" required autocomplete="family-name">
+            </label>
+          </div>
+
+          <label class="contact-form__field">
+            <span class="contact-form__label">Entreprise</span>
+            <input type="text" name="company" autocomplete="organization">
+          </label>
+
+          <div class="contact-form__row">
+            <label class="contact-form__field">
+              <span class="contact-form__label">Email <span aria-hidden="true">*</span></span>
+              <input type="email" name="email" required autocomplete="email">
+            </label>
+            <label class="contact-form__field">
+              <span class="contact-form__label">Téléphone</span>
+              <input type="tel" name="phone" autocomplete="tel">
+            </label>
+          </div>
+
+          <fieldset class="contact-form__fieldset">
+            <legend class="contact-form__label">Je préfère être contacté par</legend>
+            <div class="contact-form__checkboxes">
+              <label class="contact-form__checkbox">
+                <input type="checkbox" name="contact_method" value="Email" checked>
+                <span>Email</span>
+              </label>
+              <label class="contact-form__checkbox">
+                <input type="checkbox" name="contact_method" value="Téléphone">
+                <span>Téléphone</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="contact-form__field">
+            <span class="contact-form__label">Service concerné <span aria-hidden="true">*</span></span>
+            <select name="service" required>
+              <option value="">— Choisir un service —</option>
+              <option value="Création de sites web">Création de sites web</option>
+              <option value="Refonte UX / UI">Refonte UX / UI</option>
+              <option value="Agents IA &amp; Automatisation">Agents IA &amp; Automatisation</option>
+              <option value="Hébergement, Sécurité &amp; Maintenance">Hébergement, Sécurité &amp; Maintenance</option>
+              <option value="Autre / Plusieurs services">Autre / Plusieurs services</option>
+            </select>
+          </label>
+
+          <label class="contact-form__field">
+            <span class="contact-form__label">Description de la demande <span aria-hidden="true">*</span></span>
+            <textarea name="description" rows="6" required placeholder="Décrivez votre projet, vos objectifs, votre contexte — pas besoin d'être exhaustif, on affinera ensemble."></textarea>
+          </label>
+
+          <button type="submit" class="btn contact-form__submit">Envoyer ma demande</button>
+
+          <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <nav class="footer__links" aria-label="Liens sociaux">
+        <a href="https://github.com/BryanH1213" target="_blank" rel="noopener" class="footer__link">GitHub<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+        <a href="https://www.linkedin.com/in/bryan-hinnen/" target="_blank" rel="noopener" class="footer__link">LinkedIn<span class="sr-only"> (s'ouvre dans un nouvel onglet)</span></a>
+      </nav>
+      <p class="footer__copy">&copy; 2026 Bryan Hinnen</p>
+      <p class="footer__credit">Construit avec Claude Code</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Env
+.env
+.env.local
+*.env
+
+# Personnel — ne jamais commit
+assets/cv-*
+*.pdf
